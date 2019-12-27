@@ -7,3 +7,14 @@ out
 build
 apk
 
+.vscode/
+main/bin/
+testable-jar/bin/
+main/.settings/
+testable-jar/.settings/
+testable-jar/.project
+testable-jar/.classpath
+main/.project
+main/.classpath
+.settings/org.eclipse.buildship.core.prefs
+.project

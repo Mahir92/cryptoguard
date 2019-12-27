@@ -157,7 +157,7 @@ public class Utils {
 
             if (path.endsWith(".jar")) {
                 classPath.append(path);
-                classPath.append(":");
+                classPath.append(";");
             } else {
                 File dir = new File(path);
 
@@ -171,7 +171,7 @@ public class Utils {
                     for (File file : files) {
                         if (file.getName().endsWith(".jar")) {
                             classPath.append(file.getAbsolutePath());
-                            classPath.append(":");
+                            classPath.append(";");
                         }
                     }
                 }
