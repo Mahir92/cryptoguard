@@ -1,12 +1,22 @@
 package main.rule.engine;
 
+import main.analyzer.backward.MethodWrapper;
 import main.rule.*;
 import main.util.*;
+import soot.SootMethod;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+
+import fj.data.HashMap;
 
 public class RuleEngine {
     private static List<RuleChecker> ruleCheckerList = new ArrayList<>();
@@ -44,7 +54,8 @@ public class RuleEngine {
             System.out.println("Analyzing JAR: " + projectJarPath);
 
             for (RuleChecker ruleChecker : ruleCheckerList) {
-                ruleChecker.checkRule(EngineType.JAR, Arrays.asList(projectJarPath), Arrays.asList(projectDependencyPath));
+                ruleChecker.checkRule(EngineType.JAR, Arrays.asList(projectJarPath),
+                        Arrays.asList(projectDependencyPath));
             }
 
         } else if (args[0].equals("apk")) {
@@ -86,11 +97,13 @@ public class RuleEngine {
 
                         if (dependency.equals(projectRoot + "/src/main/java")) {
                             dependencyModule = projectRoot.substring(projectRoot.lastIndexOf("/") + 1);
-                            otherdependencies.add(dependency.substring(0, dependency.length() - 13) + projectDependencyPath);
+                            otherdependencies
+                                    .add(dependency.substring(0, dependency.length() - 13) + projectDependencyPath);
 
                         } else {
                             dependencyModule = dependency.substring(projectRoot.length() + 1, dependency.length() - 14);
-                            otherdependencies.add(dependency.substring(0, dependency.length() - 13) + projectDependencyPath);
+                            otherdependencies
+                                    .add(dependency.substring(0, dependency.length() - 13) + projectDependencyPath);
 
                         }
 
@@ -119,6 +132,81 @@ public class RuleEngine {
         for (int i = 0; i < Utils.DEPTH_COUNT.length; i++) {
             System.out.println(String.format("Depth: %d, Count %d", i + 1, Utils.DEPTH_COUNT[i]));
         }
+
+        generateCallGraph();
+    }
+
+    private static void generateCallGraph() throws IOException {
+        List<String> vulnerableMethods = getVulnerableMethods();
+        StringBuilder sbReport = new StringBuilder();
+
+        for (String method : vulnerableMethods) {
+            sbReport.append("********Generating report for: " + method + "********");
+            sbReport.append(System.lineSeparator());
+
+            Queue<String> qAffectedMethods = new LinkedList<>();
+            qAffectedMethods.add(method);
+            Dictionary<String, Integer> distance = new Hashtable<>();
+            distance.put(method, 1);
+            Dictionary<String, Boolean> color = new Hashtable<>();
+            color.put(method, true);
+
+            while (!qAffectedMethods.isEmpty()) {
+                String currMethod = qAffectedMethods.peek();
+                qAffectedMethods.remove();
+                MethodWrapper methodWrapper = NamedMethodMap.getMethod(currMethod);
+
+                if (methodWrapper != null) {
+                    SootMethod sootMethod = methodWrapper.getMethod();
+
+                    String accessModifier = "DEFAULT";
+                    if (sootMethod.isPublic())
+                        accessModifier = "PUBLIC";
+                    if (sootMethod.isPrivate())
+                        accessModifier = "PRIVATE";
+                    else if (sootMethod.isProtected())
+                        accessModifier = "PROTECTED";
+
+                    int currDist = distance.get(currMethod);
+                    sbReport.append(currMethod + "\t" + accessModifier + "\t" + currDist);
+                    sbReport.append(System.lineSeparator());
+
+                    for (MethodWrapper caller : methodWrapper.getCallerList()) {
+                        SootMethod sootCallerMethod = caller.getMethod();
+                        String callerMethod = sootCallerMethod.getSignature();
+
+                        System.out.println(callerMethod);
+
+                        int dist;
+
+                        try {
+                            dist = distance.get(callerMethod);
+                        } catch (Exception ex) {
+                            dist = 0;
+                        }
+                        if (dist == 0 || dist > currDist + 1) {
+                            dist = currDist + 1;
+                            distance.put(callerMethod, dist);
+                            qAffectedMethods.add(callerMethod);
+                        }
+                    }
+                }
+            }
+
+            sbReport.append(new String(new char[40 + method.length() - 1]).replace("\0", "*"));
+        }
+
+        FileWriter fw = new FileWriter("./output.txt");
+        fw.write(sbReport.toString());
+        fw.close();
+    }
+
+    private static List<String> getVulnerableMethods() {
+        List<String> vulMethods = new ArrayList<>(Arrays.asList(
+                // "<org.apache.activemq.artemis.utils.RandomUtil: void <clinit>()>"
+                "<mypackage.D: void greet()>"));
+
+        return vulMethods;
     }
 
     private static double calculateAverage(List<Integer> marks) {
