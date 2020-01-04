@@ -45,7 +45,6 @@ public class UntrustedPrngFinder implements RuleChecker {
                     String output = "***Violated Rule 13: Untrused PRNG (java.util.Random) Found in " + method;
                     System.out.println(output);
                     System.out.println("=============================================");
-                    VulnerabilityManager.addVulnerableMethod(method);
                 }
             }
         }

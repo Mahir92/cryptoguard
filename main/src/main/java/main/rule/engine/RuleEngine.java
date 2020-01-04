@@ -5,8 +5,12 @@ import main.rule.*;
 import main.util.*;
 import soot.SootMethod;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Dictionary;
@@ -38,6 +42,9 @@ public class RuleEngine {
     }
 
     public static void main(String[] args) throws Exception {
+
+        //setting system output to a file
+        System.setOut(new PrintStream(new File("./report.txt")));
 
         if (args.length < 2) {
             System.exit(1);
@@ -121,6 +128,9 @@ public class RuleEngine {
             }
         }
 
+        //resetting system output to console
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+
         System.out.println("Total Heuristics: " + Utils.NUM_HEURISTIC);
         System.out.println("Total Orthogonal: " + Utils.NUM_ORTHOGONAL);
         System.out.println("Total Constants: " + Utils.NUM_CONSTS_TO_CHECK);
@@ -131,11 +141,12 @@ public class RuleEngine {
             System.out.println(String.format("Depth: %d, Count %d", i + 1, Utils.DEPTH_COUNT[i]));
         }
 
+        VulnerabilityManager.getInstance().loadVulnerableMethods();
         generateCallGraph();
     }
 
     private static void generateCallGraph() throws IOException {
-        List<String> vulnerableMethods = VulnerabilityManager.getVulnerableMethods();
+        List<String> vulnerableMethods = VulnerabilityManager.getInstance().getVulnerableMethods();
         StringBuilder sbReport = new StringBuilder();
 
         for (String method : vulnerableMethods) {
@@ -176,7 +187,7 @@ public class RuleEngine {
                         SootMethod sootCallerMethod = caller.getMethod();
                         String callerMethod = sootCallerMethod.getSignature();
 
-                        System.out.println(callerMethod);
+                        // System.out.println(callerMethod);
 
                         int dist;
 
