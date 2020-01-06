@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import fj.data.HashMap;
+
 public class RuleEngine {
     private static List<RuleChecker> ruleCheckerList = new ArrayList<>();
 
@@ -144,11 +146,10 @@ public class RuleEngine {
 
             Queue<String> qAffectedMethods = new LinkedList<>();
             qAffectedMethods.add(method);
-            Dictionary<String, Integer> dictDistance = new Hashtable<>();
-            dictDistance.put(method, 1);
-            Dictionary<String, Boolean> dictColor = new Hashtable<>();
-            dictColor.put(method, true);
-            Dictionary<String, String> dictReason = new Hashtable<>();
+            Dictionary<String, Integer> distance = new Hashtable<>();
+            distance.put(method, 1);
+            Dictionary<String, Boolean> color = new Hashtable<>();
+            color.put(method, true);
 
             while (!qAffectedMethods.isEmpty()) {
                 String currMethod = qAffectedMethods.peek();
@@ -166,10 +167,8 @@ public class RuleEngine {
                     else if (sootMethod.isProtected())
                         accessModifier = "PROTECTED";
 
-                    int currDist = dictDistance.get(currMethod);
-                    String reason = dictReason.get(currMethod);
-                    reason = (reason == null) ? "ACTUAL REASON" : reason;
-                    sbReport.append(currMethod + "\t" + accessModifier + "\t" + currDist + "\t" + reason);
+                    int currDist = distance.get(currMethod);
+                    sbReport.append(currMethod + "\t" + accessModifier + "\t" + currDist);
                     sbReport.append(System.lineSeparator());
 
                     for (MethodWrapper caller : methodWrapper.getCallerList()) {
@@ -181,15 +180,14 @@ public class RuleEngine {
                         int dist;
 
                         try {
-                            dist = dictDistance.get(callerMethod);
+                            dist = distance.get(callerMethod);
                         } catch (Exception ex) {
                             dist = 0;
                         }
                         if (dist == 0 || dist > currDist + 1) {
                             dist = currDist + 1;
-                            dictDistance.put(callerMethod, dist);
+                            distance.put(callerMethod, dist);
                             qAffectedMethods.add(callerMethod);
-                            dictReason.put(callerMethod, currMethod);
                         }
                     }
                 }
@@ -205,16 +203,8 @@ public class RuleEngine {
 
     private static List<String> getVulnerableMethods() {
         List<String> vulMethods = new ArrayList<>(Arrays.asList(
-                // "<org.apache.activemq.artemis.utils.RandomUtil: void <clinit>()>",
-                // "<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm:
-                // void
-                // <init>(org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec,java.util.Map)>",
-                // "<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm:
-                // java.lang.String encode(java.lang.String)>"
-                "<mypackage2.E: void greet()>"
-        // "<org.apache.myfaces.shared.util.StateUtils: byte[]
-        // findInitializationVector(javax.faces.context.ExternalContext)>"
-        ));
+                // "<org.apache.activemq.artemis.utils.RandomUtil: void <clinit>()>"
+                "<mypackage.D: void greet()>"));
 
         return vulMethods;
     }
