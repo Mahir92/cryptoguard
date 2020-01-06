@@ -150,7 +150,9 @@ public class RuleEngine {
         StringBuilder sbReport = new StringBuilder();
 
         for (String method : vulnerableMethods) {
-            sbReport.append("********Generating report for: " + method + "********");
+            sbReport.append("\"" + method.toUpperCase() + "\",,,");
+            sbReport.append(System.lineSeparator());
+            sbReport.append("Method,Access Modifier,Distance,Reason,Summary,Impact,Severity");
             sbReport.append(System.lineSeparator());
 
             Queue<String> qAffectedMethods = new LinkedList<>();
@@ -180,7 +182,7 @@ public class RuleEngine {
                     int currDist = dictDistance.get(currMethod);
                     String reason = dictReason.get(currMethod);
                     reason = (reason == null) ? "ACTUAL REASON" : reason;
-                    sbReport.append(currMethod + "\t" + accessModifier + "\t" + currDist + "\t" + reason);
+                    sbReport.append("\"" + currMethod + "\"," + accessModifier + "," + currDist + ",\"" + reason + "\"");
                     sbReport.append(System.lineSeparator());
 
                     for (MethodWrapper caller : methodWrapper.getCallerList()) {
@@ -206,11 +208,11 @@ public class RuleEngine {
                 }
             }
 
-            sbReport.append(new String(new char[40 + method.length() - 1]).replace("\0", "*"));
+            //sbReport.append(new String(new char[40 + method.length() - 1]).replace("\0", "*"));
             sbReport.append(System.lineSeparator());
         }
 
-        FileWriter fw = new FileWriter("./output.txt");
+        FileWriter fw = new FileWriter("./output.csv");
         fw.write(sbReport.toString());
         fw.close();
     }
