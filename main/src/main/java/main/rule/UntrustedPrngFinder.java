@@ -3,7 +3,6 @@ package main.rule;
 import main.rule.engine.EngineType;
 import main.rule.engine.RuleChecker;
 import main.util.Utils;
-import main.util.VulnerabilityManager;
 import soot.*;
 import soot.options.Options;
 import soot.toolkits.graph.DirectedGraph;
@@ -45,7 +44,6 @@ public class UntrustedPrngFinder implements RuleChecker {
                     String output = "***Violated Rule 13: Untrused PRNG (java.util.Random) Found in " + method;
                     System.out.println(output);
                     System.out.println("=============================================");
-                    VulnerabilityManager.addVulnerableMethod(method);
                 }
             }
         }

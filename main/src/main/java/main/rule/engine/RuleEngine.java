@@ -135,7 +135,7 @@ public class RuleEngine {
     }
 
     private static void generateCallGraph() throws IOException {
-        List<String> vulnerableMethods = VulnerabilityManager.getVulnerableMethods();
+        List<String> vulnerableMethods = getVulnerableMethods();
         StringBuilder sbReport = new StringBuilder();
 
         for (String method : vulnerableMethods) {
@@ -196,12 +196,27 @@ public class RuleEngine {
             }
 
             sbReport.append(new String(new char[40 + method.length() - 1]).replace("\0", "*"));
-            sbReport.append(System.lineSeparator());
         }
 
         FileWriter fw = new FileWriter("./output.txt");
         fw.write(sbReport.toString());
         fw.close();
+    }
+
+    private static List<String> getVulnerableMethods() {
+        List<String> vulMethods = new ArrayList<>(Arrays.asList(
+                // "<org.apache.activemq.artemis.utils.RandomUtil: void <clinit>()>",
+                // "<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm:
+                // void
+                // <init>(org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec,java.util.Map)>",
+                // "<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm:
+                // java.lang.String encode(java.lang.String)>"
+                "<mypackage2.E: void greet()>"
+        // "<org.apache.myfaces.shared.util.StateUtils: byte[]
+        // findInitializationVector(javax.faces.context.ExternalContext)>"
+        ));
+
+        return vulMethods;
     }
 
     private static double calculateAverage(List<Integer> marks) {
