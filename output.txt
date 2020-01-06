@@ -1,0 +1,18 @@
+********Generating report for: <org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm: java.lang.String encode(java.lang.String)>********
+<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm: java.lang.String encode(java.lang.String)>	PUBLIC	1	ACTUAL REASON
+<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec: java.lang.String encode(java.lang.Object)>	PUBLIC	2	<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$BlowfishAlgorithm: java.lang.String encode(java.lang.String)>
+<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec: void main(java.lang.String[])>	PUBLIC	3	<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec: java.lang.String encode(java.lang.Object)>
+<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec: java.lang.Object encode(java.lang.Object)>	PUBLIC	3	<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec: java.lang.String encode(java.lang.Object)>
+<org.apache.activemq.artemis.utils.SecureHashProcessor: java.lang.String hash(java.lang.String)>	PUBLIC	3	<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec: java.lang.String encode(java.lang.Object)>
+*******************************************************************************************************************************************************************
+********Generating report for: <org.apache.activemq.artemis.utils.RandomUtil: void <clinit>()>********
+<org.apache.activemq.artemis.utils.RandomUtil: void <clinit>()>	DEFAULT	1	ACTUAL REASON
+******************************************************************************************************
+********Generating report for: <java.lang.StringCoding: byte[] encode(java.lang.String,char[],int,int)>********
+***************************************************************************************************************
+********Generating report for: <java.lang.StringCoding: byte[] encode(java.lang.String,char[],int,int)>********
+***************************************************************************************************************
+********Generating report for: <java.lang.Integer: int parseInt(java.lang.String,int)>********
+**********************************************************************************************
+********Generating report for: < 1000 iteration for PBE ***Constants: [1024, r0.<org.apache.activemq.artemis.utils.DefaultSensitiveStringCodec$PBKDF2Algorithm: int iterations>, $i2, i0, $i0, staticinvoke <java.lang.Integer: int parseInt(java.lang.String,int)>********
+***************************************************************************************************************************************************************************************************************************************************************************
