@@ -43,7 +43,7 @@ public class RuleEngine {
 
     public static void main(String[] args) throws Exception {
 
-        //setting system output to a file
+        // setting system output to a file
         System.setOut(new PrintStream(new File("./report.txt")));
 
         if (args.length < 2) {
@@ -128,7 +128,7 @@ public class RuleEngine {
             }
         }
 
-        //resetting system output to console
+        // resetting system output to console
         System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
 
         System.out.println("Total Heuristics: " + Utils.NUM_HEURISTIC);
@@ -149,12 +149,10 @@ public class RuleEngine {
         List<String> vulnerableMethods = VulnerabilityManager.getInstance().getVulnerableMethods();
         StringBuilder sbReport = new StringBuilder();
 
-        for (String method : vulnerableMethods) {
-            sbReport.append("\"" + method.toUpperCase() + "\",,,");
-            sbReport.append(System.lineSeparator());
-            sbReport.append("Method,Access Modifier,Distance,Reason,Summary,Impact,Severity");
-            sbReport.append(System.lineSeparator());
+        sbReport.append("Method,Access Modifier,Distance,Reason,Summary,Impact,Severity");
+        sbReport.append(System.lineSeparator());
 
+        for (String method : vulnerableMethods) {
             Queue<String> qAffectedMethods = new LinkedList<>();
             qAffectedMethods.add(method);
             Dictionary<String, Integer> dictDistance = new Hashtable<>();
@@ -182,7 +180,8 @@ public class RuleEngine {
                     int currDist = dictDistance.get(currMethod);
                     String reason = dictReason.get(currMethod);
                     reason = (reason == null) ? "ACTUAL REASON" : reason;
-                    sbReport.append("\"" + currMethod + "\"," + accessModifier + "," + currDist + ",\"" + reason + "\"");
+                    sbReport.append(
+                            "\"" + currMethod + "\"," + accessModifier + "," + currDist + ",\"" + reason + "\",-,-,-");
                     sbReport.append(System.lineSeparator());
 
                     for (MethodWrapper caller : methodWrapper.getCallerList()) {
@@ -208,7 +207,8 @@ public class RuleEngine {
                 }
             }
 
-            //sbReport.append(new String(new char[40 + method.length() - 1]).replace("\0", "*"));
+            // sbReport.append(new String(new char[40 + method.length() - 1]).replace("\0",
+            // "*"));
             sbReport.append(System.lineSeparator());
         }
 
