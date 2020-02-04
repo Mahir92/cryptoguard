@@ -149,7 +149,7 @@ public class RuleEngine {
         List<String> vulnerableMethods = VulnerabilityManager.getInstance().getVulnerableMethods();
         StringBuilder sbReport = new StringBuilder();
 
-        sbReport.append("Method,Access Modifier,Distance,Reason,Summary,Impact,Severity");
+        sbReport.append("Method\tAccess Modifier\tDistance\tReason\tSummary\tImpact\tRemarks\tSeverity");
         sbReport.append(System.lineSeparator());
 
         for (String method : vulnerableMethods) {
@@ -181,7 +181,7 @@ public class RuleEngine {
                     String reason = dictReason.get(currMethod);
                     reason = (reason == null) ? "ACTUAL REASON" : reason;
                     sbReport.append(
-                            "\"" + currMethod + "\"," + accessModifier + "," + currDist + ",\"" + reason + "\",-,-,-");
+                            "\"" + currMethod + "\"\t" + accessModifier + "\t" + currDist + "\t\"" + reason + "\"\t-\t-\t-\t-");
                     sbReport.append(System.lineSeparator());
 
                     for (MethodWrapper caller : methodWrapper.getCallerList()) {
@@ -212,7 +212,7 @@ public class RuleEngine {
             sbReport.append(System.lineSeparator());
         }
 
-        FileWriter fw = new FileWriter("./output.csv");
+        FileWriter fw = new FileWriter("./output.txt");
         fw.write(sbReport.toString());
         fw.close();
     }
