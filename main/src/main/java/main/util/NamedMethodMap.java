@@ -119,6 +119,11 @@ public class NamedMethodMap {
 
                                 MethodCallSiteInfo callSiteInfo = new MethodCallSiteInfo(caller, callee,
                                         u.getJavaSourceStartLineNumber(), u.getJavaSourceStartColumnNumber());
+                                
+                                System.out.println();
+                                System.out.println(caller.getMethod().getSignature() + " calls " +
+                                    callee.getMethod().getSignature() + " at line: " + callSiteInfo.getLineNumber());
+                                System.out.println();
 
                                 caller.getCalleeList().add(callSiteInfo);
                                 callee.getCallerList().add(caller);
