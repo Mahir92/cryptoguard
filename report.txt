@@ -1,18 +1,10 @@
-Analyzing JAR: D:\Professional\VT\sources\apache\output\apache\myfaces\shared\myfaces-impl-shared-2.2.0-SNAPSHOT.jar
-=======================================
-***Violated Rule 1a: Found broken crypto schemes ***Constants: ["/", "/", 0]
-=======================================
+Analyzing JAR: C:\Mahir\VT\Research\demonstrate-cryptoguard-vulnerabilities\projects\Practices\MavenPrac\target\mahir-arf-0.0.1-SNAPSHOT.jar
+
+<MavenPrac: void main(java.lang.String[])> calls <MavenPrac: java.lang.String getGreeting()> at line: 5
+
+
+<MavenPrac: java.lang.String getGreeting()> calls <MavenPrac: int getRandID()> at line: 10
+
 =============================================
-***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.myfaces.shared.util.StateUtils: byte[] findMacSecret(java.lang.String,java.lang.String)>
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <MavenPrac: int getRandID()>
 =============================================
-=============================================
-***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.myfaces.shared.util.StateUtils: byte[] findSecret(java.lang.String,java.lang.String)>
-=============================================
-=======================================
-***Violated Rule 3a: Used constant keys in code ***Constants: [8, 8, 1]
-[UnitContainer{unit=r22 = newarray (byte)[8], method='<org.apache.myfaces.shared.util.StateUtils: byte[] findSecret(java.lang.String,java.lang.String)>'}, UnitContainer{unit=r22 = newarray (byte)[8], method='<org.apache.myfaces.shared.util.StateUtils: byte[] findMacSecret(java.lang.String,java.lang.String)>'}, UnitContainer{unit=r8 = specialinvoke r0.<javax.crypto.KeyGenerator: javax.crypto.KeyGeneratorSpi nextSpi(javax.crypto.KeyGeneratorSpi,boolean)>(r8, 1), method='<javax.crypto.KeyGenerator: javax.crypto.SecretKey generateKey()>'}]
-=======================================
-=======================================
-***Violated Rule 10a: Found constant IV in code ***Constants: [null] ***Config: null in line: <li>If the passed value is <code>null</code>, exit immediately.</li> with value: <li> in file: META-INF/myfaces-metadata.xml ***Config: null in line: If no pattern has been set, or pattern resolves to <code>null</code> or an with value: empty String, throw a {@link javax.faces.validator.ValidatorException} in file: META-INF/myfaces-metadata.xml
-[UnitContainer{unit=r5 = null, method='<org.apache.myfaces.shared.util.StateUtils: byte[] findInitializationVector(javax.faces.context.ExternalContext)>'}]
-=======================================

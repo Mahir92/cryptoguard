@@ -1,0 +1,9 @@
+Method	Access Modifier	Distance	Reason	Summary	Impact	Remarks	Severity	Unsafe
+"<MavenPrac: int getRandID()>"	DEFAULT	1	"ACTUAL REASON"	-	-	-	Yes
+"<MavenPrac: java.lang.String getGreeting()>"	DEFAULT	2	"<MavenPrac: int getRandID()>"	-	-	-	Yes
+"<MavenPrac: void main(java.lang.String[])>"	PUBLIC	3	"<MavenPrac: java.lang.String getGreeting()>"	-	-	-	No
+
+"<MavenPrac: int getRandID()>"	DEFAULT	1	"ACTUAL REASON"	-	-	-	Yes
+"<MavenPrac: java.lang.String getGreeting()>"	DEFAULT	2	"<MavenPrac: int getRandID()>"	-	-	-	Yes
+"<MavenPrac: void main(java.lang.String[])>"	PUBLIC	3	"<MavenPrac: java.lang.String getGreeting()>"	-	-	-	No
+

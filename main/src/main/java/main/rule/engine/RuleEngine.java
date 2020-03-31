@@ -149,7 +149,7 @@ public class RuleEngine {
         List<String> vulnerableMethods = VulnerabilityManager.getInstance().getVulnerableMethods();
         StringBuilder sbReport = new StringBuilder();
 
-        sbReport.append("Method\tAccess Modifier\tDistance\tReason\tSummary\tImpact\tRemarks\tSeverity");
+        sbReport.append("Method\tAccess Modifier\tDistance\tReason\tSummary\tImpact\tRemarks\tSeverity\tUnsafe");
         sbReport.append(System.lineSeparator());
 
         for (String method : vulnerableMethods) {
@@ -176,12 +176,22 @@ public class RuleEngine {
                         accessModifier = "PRIVATE";
                     else if (sootMethod.isProtected())
                         accessModifier = "PROTECTED";
-
+                        
                     int currDist = dictDistance.get(currMethod);
                     String reason = dictReason.get(currMethod);
-                    reason = (reason == null) ? "ACTUAL REASON" : reason;
+
+                    String unsafe;
+
+                    if(reason == null) {
+                        reason = "ACTUAL REASON";
+                        unsafe = "Yes";
+                    }
+                    else {
+                        unsafe = SafeUnsafeLabelUtils.IsUnsafe(currMethod, reason) ? "Yes" : "No";
+                    }
+
                     sbReport.append(
-                            "\"" + currMethod + "\"\t" + accessModifier + "\t" + currDist + "\t\"" + reason + "\"\t-\t-\t-\t-");
+                            "\"" + currMethod + "\"\t" + accessModifier + "\t" + currDist + "\t\"" + reason + "\"\t-\t-\t-\t" + unsafe);
                     sbReport.append(System.lineSeparator());
 
                     for (MethodWrapper caller : methodWrapper.getCallerList()) {

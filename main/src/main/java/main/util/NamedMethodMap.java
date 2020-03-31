@@ -101,10 +101,15 @@ public class NamedMethodMap {
 
                     Iterator gIt = graph.iterator();
 
+                    StringBuilder sbCodeStr = new StringBuilder();
+
                     while (gIt.hasNext()) {
                         Unit u = (Unit) gIt.next();
 
                         String uStr = u.toString();
+
+                        sbCodeStr.append(uStr);
+                        sbCodeStr.append(SafeUnsafeLabelUtils.LINE_SEPERATOR);    
 
                         if (uStr.contains("}") || uStr.contains("{") || uStr.contains(";")) {
                             continue;
@@ -182,6 +187,8 @@ public class NamedMethodMap {
 
                         }
                     }
+
+                    SafeUnsafeLabelUtils.saveMethod(m.getSignature(), sbCodeStr.toString());
                 }
             }
         }
