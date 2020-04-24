@@ -1,10 +1,57 @@
-Analyzing JAR: C:\Mahir\VT\Research\demonstrate-cryptoguard-vulnerabilities\projects\Practices\MavenPrac\target\mahir-arf-0.0.1-SNAPSHOT.jar
-
-<MavenPrac: void main(java.lang.String[])> calls <MavenPrac: java.lang.String getGreeting()> at line: 5
-
-
-<MavenPrac: java.lang.String getGreeting()> calls <MavenPrac: int getRandID()> at line: 10
-
+Analyzing JAR: C:\Mahir\VT\Research\demonstrate-cryptoguard-vulnerabilities\projects\Apache\Outputs\apache\hadoop\hadoop-common-project\hadoop-common\hadoop-common-3.1.0-SNAPSHOT.jar
+=======================================
+***Violated Rule 1a: Found broken crypto schemes ***Constants: ["AES_CTR_NOPADDING", 1, "AES/CTR/NoPadding", 16]
+=======================================
 =============================================
-***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <MavenPrac: int getRandID()>
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.net.NetworkTopology: void <clinit>()>
 =============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.crypto.random.OpensslSecureRandom: void <init>()>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.fs.LocalFileSystem: void <clinit>()>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.util.ReadWriteDiskValidator: void <clinit>()>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration,boolean)>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.metrics2.impl.MetricsSinkAdapter: void publishMetricsFromQueue()>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.crypto.random.OsSecureRandom: void <init>()>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.ipc.Client$Connection: void setupIOstreams(java.util.concurrent.atomic.AtomicBoolean)>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: void <init>(java.lang.String)>
+=============================================
+=============================================
+***Violated Rule 13: Untrused PRNG (java.util.Random) Found in <org.apache.hadoop.util.bloom.RetouchedBloomFilter: int randomRemove()>
+=============================================
+=======================================
+***Violated Rule 2: Found broken hash functions ***Constants: ["SHA", "MD5", "MD5", "MD5", "MD5", "MD5"]
+[UnitContainer{unit=$fakeLocal_89[0] = "SHA", method='<org.apache.hadoop.security.authentication.util.Signer: java.lang.String computeSignature(byte[],java.lang.String)>'}, UnitContainer{unit=$fakeLocal_869[0] = "MD5", method='<org.apache.hadoop.io.SequenceFile$Writer: void <init>(org.apache.hadoop.fs.FileSystem,org.apache.hadoop.conf.Configuration,org.apache.hadoop.fs.Path,java.lang.Class,java.lang.Class,org.apache.hadoop.util.Progressable,org.apache.hadoop.io.SequenceFile$Metadata)>'}, UnitContainer{unit=$fakeLocal_869[0] = "MD5", method='<org.apache.hadoop.io.SequenceFile$Writer: void <init>(org.apache.hadoop.conf.Configuration,org.apache.hadoop.io.SequenceFile$Writer$Option[])>'}, UnitContainer{unit=$fakeLocal_43[0] = "MD5", method='<org.apache.hadoop.io.MD5Hash$1: java.security.MessageDigest initialValue()>'}, UnitContainer{unit=$fakeLocal_869[0] = "MD5", method='<org.apache.hadoop.io.SequenceFile$Writer: void <init>(org.apache.hadoop.fs.FileSystem,org.apache.hadoop.conf.Configuration,org.apache.hadoop.fs.Path,java.lang.Class,java.lang.Class)>'}, UnitContainer{unit=$fakeLocal_869[0] = "MD5", method='<org.apache.hadoop.io.SequenceFile$Writer: void <init>(org.apache.hadoop.fs.FileSystem,org.apache.hadoop.conf.Configuration,org.apache.hadoop.fs.Path,java.lang.Class,java.lang.Class,int,short,long,org.apache.hadoop.util.Progressable,org.apache.hadoop.io.SequenceFile$Metadata)>'}]
+=======================================
+=======================================
+***Violated Rule 3a: Used constant keys in code ***Constants: [null, null, null, null, null, null, null, null]
+[UnitContainer{unit=$fakeLocal_r0.<org.apache.hadoop.security.token.delegation.DelegationKey: byte[] keyBytes> = null, method='<org.apache.hadoop.security.token.delegation.DelegationKey: void readFields(java.io.DataInput)>'}, UnitContainer{unit=r25 = virtualinvoke r3.<java.security.Provider$Service: java.lang.Object newInstance(java.lang.Object)>(null), method='<javax.crypto.KeyGenerator: javax.crypto.KeyGeneratorSpi nextSpi(javax.crypto.KeyGeneratorSpi,boolean)>'}, UnitContainer{unit=$r3 = null, method='<org.apache.hadoop.security.token.delegation.DelegationKey: void <init>(int,long,javax.crypto.SecretKey)>'}, UnitContainer{unit=$fakeLocal_r0.<org.apache.hadoop.security.token.delegation.DelegationKey: byte[] keyBytes> = null, method='<org.apache.hadoop.security.token.delegation.DelegationKey: void <init>(int,long,byte[])>'}, UnitContainer{unit=$r1 = (javax.crypto.SecretKey) null, method='<org.apache.hadoop.security.token.delegation.DelegationKey: void <init>()>'}, UnitContainer{unit=return null, method='<javax.crypto.KeyGenerator: javax.crypto.KeyGeneratorSpi nextSpi(javax.crypto.KeyGeneratorSpi,boolean)>'}, UnitContainer{unit=r11 = null, method='<java.lang.StringCoding: byte[] encode(java.lang.String,char[],int,int)>'}, UnitContainer{unit=return null, method='<java.lang.StringCoding: java.lang.Object deref(java.lang.ThreadLocal)>'}]
+=======================================
+=======================================
+***Violated Rule 14: Used Predictable KeyStore Password ***Constants: ["none", "none"]
+[UnitContainer{unit=$r10 = "none", method='<org.apache.hadoop.security.alias.AbstractJavaKeyStoreProvider: void locateKeystore()>'}, UnitContainer{unit=$r1 = "none", method='<org.apache.hadoop.crypto.key.JavaKeyStoreProvider: void <clinit>()>'}]
+=======================================
+=======================================
+***Violated Rule 14a: Used Predictable KeyStore Password ***Constants: [-1, null, null, 0, null, null, null, null, null, 1]
+[UnitContainer{unit=i4 = i4 + -1, method='<java.lang.String: java.lang.String trim()>'}, UnitContainer{unit=$r24 = null, method='<org.apache.hadoop.security.ssl.ReloadingX509TrustManager: javax.net.ssl.X509TrustManager loadTrustManager()>'}, UnitContainer{unit=r18 = null, method='<org.apache.hadoop.conf.Configuration: char[] getPasswordFromCredentialProviders(java.lang.String)>'}, UnitContainer{unit=i5 = 0, method='<java.lang.String: java.lang.String trim()>'}, UnitContainer{unit=$fakeLocal_183[1] = null, method='<org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory: void init(org.apache.hadoop.security.ssl.SSLFactory$Mode)>'}, UnitContainer{unit=r3 = null, method='<org.apache.hadoop.conf.Configuration: char[] getPasswordFromConfig(java.lang.String)>'}, UnitContainer{unit=r17 = null, method='<org.apache.hadoop.security.ProviderUtils: char[] locatePassword(java.lang.String,java.lang.String)>'}, UnitContainer{unit=r93 = null, method='<org.apache.hadoop.security.ssl.FileBasedKeyStoresFactory: void init(org.apache.hadoop.security.ssl.SSLFactory$Mode)>'}, UnitContainer{unit=$fakeLocal_r0.<org.apache.hadoop.security.alias.AbstractJavaKeyStoreProvider: char[] password> = null, method='<org.apache.hadoop.security.alias.AbstractJavaKeyStoreProvider: void <init>(java.net.URI,org.apache.hadoop.conf.Configuration)>'}, UnitContainer{unit=i5 = i5 + 1, method='<java.lang.String: java.lang.String trim()>'}]
+=======================================
+=======================================
+***Violated Rule 7: Used HTTP Protocol ***Constants: ["http://foo", "http://"]
+[UnitContainer{unit=$fakeLocal_106[0] = "http://foo", method='<org.apache.hadoop.security.authentication.client.TestAuthenticatedURL: void testConnectionConfigurator()>'}, UnitContainer{unit=$r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("http://"), method='<org.apache.hadoop.security.authentication.client.AuthenticatorTestCase: java.lang.String getBaseURL()>'}]
+=======================================
+=======================================
+***Violated Rule 7a: Used HTTP Protocol ***Constants: [":", null, null, "://", 0, null, "#", ":", "://", "/logLevel?log=", 44, "user.name=", "//", "/v1", 0, 1, null, "&level=", "/", "/foo/bar", "/logLevel?log=", null]
+=======================================

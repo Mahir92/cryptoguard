@@ -1,9 +1,52 @@
-Method	Access Modifier	Distance	Reason	Summary	Impact	Remarks	Severity	Unsafe
-"<MavenPrac: int getRandID()>"	DEFAULT	1	"ACTUAL REASON"	-	-	-	Yes
-"<MavenPrac: java.lang.String getGreeting()>"	DEFAULT	2	"<MavenPrac: int getRandID()>"	-	-	-	Yes
-"<MavenPrac: void main(java.lang.String[])>"	PUBLIC	3	"<MavenPrac: java.lang.String getGreeting()>"	-	-	-	No
+Method	Access Modifier	Unsafe
 
-"<MavenPrac: int getRandID()>"	DEFAULT	1	"ACTUAL REASON"	-	-	-	Yes
-"<MavenPrac: java.lang.String getGreeting()>"	DEFAULT	2	"<MavenPrac: int getRandID()>"	-	-	-	Yes
-"<MavenPrac: void main(java.lang.String[])>"	PUBLIC	3	"<MavenPrac: java.lang.String getGreeting()>"	-	-	-	No
+"<org.apache.hadoop.crypto.random.OpensslSecureRandom: void <init>()>"	PUBLIC	Yes
+
+
+
+"<org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration,boolean)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration,boolean)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: java.io.File createTmpFileForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: java.io.File createTmpFileForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator merge(java.util.List,org.apache.hadoop.fs.Path)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator merge(org.apache.hadoop.fs.Path[],boolean,int,org.apache.hadoop.fs.Path)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator merge(org.apache.hadoop.fs.Path[],org.apache.hadoop.fs.Path,boolean)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator sortAndIterate(org.apache.hadoop.fs.Path[],org.apache.hadoop.fs.Path,boolean)>"	PUBLIC	Yes
+
+
+"<org.apache.hadoop.crypto.random.OsSecureRandom: void <init>()>"	PUBLIC	Yes
+
+"<org.apache.hadoop.ipc.Client: org.apache.hadoop.io.Writable call(org.apache.hadoop.ipc.RPC$RpcKind,org.apache.hadoop.io.Writable,org.apache.hadoop.ipc.Client$ConnectionId,java.util.concurrent.atomic.AtomicBoolean)>"	PUBLIC	Yes
+"<org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker: com.google.protobuf.Message invoke(java.lang.Object,java.lang.reflect.Method,java.lang.Object[])>"	PUBLIC	Yes
+"<org.apache.hadoop.ipc.WritableRpcEngine$Invoker: java.lang.Object invoke(java.lang.Object,java.lang.reflect.Method,java.lang.Object[])>"	PUBLIC	Yes
+"<org.apache.hadoop.ipc.ProtobufRpcEngine$Invoker: java.lang.Object invoke(java.lang.Object,java.lang.reflect.Method,java.lang.Object[])>"	PUBLIC	Yes
+
+"<org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext: void <init>(java.lang.String)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration,boolean)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathToRead(java.lang.String,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: java.lang.Iterable getAllLocalPathsToRead(java.lang.String,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: java.io.File createTmpFileForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: boolean ifExists(java.lang.String,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,long,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.fs.LocalDirAllocator: org.apache.hadoop.fs.Path getLocalPathForWrite(java.lang.String,org.apache.hadoop.conf.Configuration)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator merge(java.util.List,org.apache.hadoop.fs.Path)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator merge(org.apache.hadoop.fs.Path[],boolean,int,org.apache.hadoop.fs.Path)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator merge(org.apache.hadoop.fs.Path[],org.apache.hadoop.fs.Path,boolean)>"	PUBLIC	Yes
+"<org.apache.hadoop.io.SequenceFile$Sorter: org.apache.hadoop.io.SequenceFile$Sorter$RawKeyValueIterator sortAndIterate(org.apache.hadoop.fs.Path[],org.apache.hadoop.fs.Path,boolean)>"	PUBLIC	Yes
+
+
+"<org.apache.hadoop.io.SequenceFile$Writer: void <init>(org.apache.hadoop.fs.FileSystem,org.apache.hadoop.conf.Configuration,org.apache.hadoop.fs.Path,java.lang.Class,java.lang.Class,int,short,long,org.apache.hadoop.util.Progressable,org.apache.hadoop.io.SequenceFile$Metadata)>"	PUBLIC	Yes
+
+
+
+
+"<org.apache.hadoop.security.authentication.client.TestKerberosAuthenticator$1: java.lang.Object call()>"	PUBLIC	Yes
+"<org.apache.hadoop.security.authentication.client.TestKerberosAuthenticator$2: java.lang.Object call()>"	PUBLIC	Yes
+"<org.apache.hadoop.security.authentication.client.TestKerberosAuthenticator$5: java.lang.Object call()>"	PUBLIC	Yes
+"<org.apache.hadoop.security.authentication.client.TestKerberosAuthenticator$4: java.lang.Object call()>"	PUBLIC	Yes
+"<org.apache.hadoop.security.authentication.client.TestKerberosAuthenticator$6: java.lang.Object call()>"	PUBLIC	Yes
+"<org.apache.hadoop.security.authentication.client.TestKerberosAuthenticator$3: java.lang.Object call()>"	PUBLIC	Yes
+"<org.apache.hadoop.ipc.ExternalCall: java.lang.Object run()>"	PUBLIC	Yes
 

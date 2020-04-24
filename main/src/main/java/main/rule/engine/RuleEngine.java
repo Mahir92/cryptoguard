@@ -149,7 +149,7 @@ public class RuleEngine {
         List<String> vulnerableMethods = VulnerabilityManager.getInstance().getVulnerableMethods();
         StringBuilder sbReport = new StringBuilder();
 
-        sbReport.append("Method\tAccess Modifier\tDistance\tReason\tSummary\tImpact\tRemarks\tSeverity\tUnsafe");
+        sbReport.append("Method\tAccess Modifier\tUnsafe");
         sbReport.append(System.lineSeparator());
 
         for (String method : vulnerableMethods) {
@@ -190,9 +190,13 @@ public class RuleEngine {
                         unsafe = SafeUnsafeLabelUtils.IsUnsafe(currMethod, reason) ? "Yes" : "No";
                     }
 
-                    sbReport.append(
-                            "\"" + currMethod + "\"\t" + accessModifier + "\t" + currDist + "\t\"" + reason + "\"\t-\t-\t-\t" + unsafe);
-                    sbReport.append(System.lineSeparator());
+                    //For keeping only the PUBLIC UNSAFE methods for now
+                    
+                    if(accessModifier.equals("PUBLIC") && unsafe.equals("Yes")) {
+                        sbReport.append(
+                                "\"" + currMethod + "\"\t" + accessModifier + "\t" + unsafe);
+                        sbReport.append(System.lineSeparator());
+                    }
 
                     for (MethodWrapper caller : methodWrapper.getCallerList()) {
                         SootMethod sootCallerMethod = caller.getMethod();
