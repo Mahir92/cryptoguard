@@ -25,7 +25,8 @@ import java.util.Queue;
 
 public class RuleEngine {
     private static List<RuleChecker> ruleCheckerList = new ArrayList<>();
-
+    private static int jarCount = 0;
+    
     static {
 
         ruleCheckerList.add(new InsecureAssymCryptoFinder());
@@ -45,6 +46,16 @@ public class RuleEngine {
     }
 
     public static void main(String[] args) throws Exception {
+
+
+        if(args.length == 1) {
+
+            String clientAppsDirectory = args[0];
+            jarCount = 0;
+            List<String> listAllJarPaths = getAllJarPaths(clientAppsDirectory);
+            System.err.println("Total " + listAllJarPaths.size() + " Jars found");
+            return;
+        }
 
         BufferedReader br = new BufferedReader(new FileReader("./unsafe-methods.txt"));
 
@@ -160,6 +171,57 @@ public class RuleEngine {
 
         VulnerabilityManager.getInstance().loadVulnerableMethods();
         generateCallGraph();
+    }
+
+    /**
+     * Gets paths of all Jar files in a certain directory
+     * @param directory
+     */
+    private static List<String> getAllJarPaths(String directory) {
+        List<String> jarPaths = new ArrayList<String>();
+
+        File rootDirectory = new File(directory);
+
+        File[] arrFilesFolders = rootDirectory.listFiles();
+
+		if (arrFilesFolders != null) {
+			for (File file : arrFilesFolders) {
+				if (file.isDirectory()) {
+					jarPaths.addAll(getAllJarPaths(file.getPath()));
+				}
+				else {
+					if(getExtension(file.getPath()).equals("jar") && !inLib(file.getPath())) {
+                        if(++jarCount % 100 == 0) {
+                            System.err.println("Found jars: " + jarCount);
+                        }
+                        jarPaths.add(file.getPath());
+                    }
+				}
+			}
+		}
+
+        return jarPaths;
+    }
+
+    /**
+     * Pruning procedure to filter out library jar files 
+     * @param path
+     * @return
+     */
+    private static boolean inLib(String path) {
+        return path.contains("/lib/") 
+            || path.contains("//lib//")
+            || path.contains("\\lib");
+    }
+
+    /**
+     * Returns extension of a file from file path in LOWERCASE
+     * @param filePath
+     * @return
+     */
+    private static String getExtension(String filePath) {
+        String[] parts = filePath.split("\\.");
+        return parts[parts.length - 1].toLowerCase();
     }
 
     private static void generateCallGraph() throws IOException {
