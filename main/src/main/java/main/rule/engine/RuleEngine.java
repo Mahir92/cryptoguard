@@ -5,15 +5,18 @@ import main.rule.*;
 import main.util.*;
 import soot.SootMethod;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +45,20 @@ public class RuleEngine {
     }
 
     public static void main(String[] args) throws Exception {
+
+        BufferedReader br = new BufferedReader(new FileReader("./unsafe-methods.txt"));
+
+        SafeUnsafeLabelUtils.mpIsUnsafe = new HashMap<String, Boolean>();
+        String unsafeMethod = br.readLine();
+        while(unsafeMethod != null) {
+            
+            if(!SafeUnsafeLabelUtils.mpIsUnsafe.containsKey(unsafeMethod))
+                SafeUnsafeLabelUtils.mpIsUnsafe.put(unsafeMethod, true);
+
+            unsafeMethod = br.readLine();
+        }
+
+        br.close();
 
         // setting system output to a file
         System.setOut(new PrintStream(new File("./report.txt")));

@@ -66,6 +66,17 @@ public class NamedMethodMap {
             if (nameVsMethodMap.get(m.toString()) == null) {
                 MethodWrapper methodWrapper = new MethodWrapper(m);
                 nameVsMethodMap.put(m.toString(), methodWrapper);
+
+                if(m.toString().contains("org.apache.activemq")) {
+                    System.err.println("Library usage detected for: " + m.toString());
+                }
+
+                //System.err.println(m.toString());
+
+                //check if m is unsafe
+                if(SafeUnsafeLabelUtils.mpIsUnsafe.containsKey(m.toString()) && SafeUnsafeLabelUtils.mpIsUnsafe.get(m.toString())) {
+                    System.err.println(m.toString() + " is invoked");
+                }
             }
         }
     }
@@ -119,6 +130,10 @@ public class NamedMethodMap {
                             String invokedMethod = uStr.substring(uStr.indexOf('<'), uStr.lastIndexOf('>') + 1);
                             MethodWrapper callee = NamedMethodMap.getMethod(invokedMethod);
 
+                            if(SafeUnsafeLabelUtils.mpIsUnsafe.containsKey(invokedMethod) && SafeUnsafeLabelUtils.mpIsUnsafe.get(invokedMethod)) {
+                                System.err.println(invokedMethod + " is invoked");
+                            }
+
                             if (callee != null && caller != callee) {
                                 callee.setTopLevel(false);
 
@@ -135,6 +150,10 @@ public class NamedMethodMap {
                                 uStr.contains("dynamicinvoke ")) && uStr.contains(".<")) {
                             String invokedMethod = uStr.substring(uStr.indexOf('<'), uStr.lastIndexOf('>') + 1);
                             String reference = uStr.substring(uStr.indexOf("invoke ") + 7, uStr.indexOf(".<"));
+
+                            if(SafeUnsafeLabelUtils.mpIsUnsafe.containsKey(invokedMethod) && SafeUnsafeLabelUtils.mpIsUnsafe.get(invokedMethod)) {
+                                System.err.println(invokedMethod + " is invoked");
+                            }
 
                             String refType = null;
 

@@ -10,7 +10,9 @@ import java.util.List;
 public class SafeUnsafeLabelUtils {
     public static final String LINE_SEPERATOR = "< /br>";
     private static final String PART_SEPERATOR = " = ";
-
+    
+    public static Map<String, Boolean> mpIsUnsafe = null;
+    
     private static Map<String, String> mpMethodCode;
 
     /**
@@ -156,7 +158,7 @@ public class SafeUnsafeLabelUtils {
             String u = q.remove();
             for (String returnStatement : returnStatements) {
                 if (returnStatement.contains(u)) {
-                    System.out.println("Return statement: " + returnStatement + " tainted for: " + u);
+                    //System.out.println("Return statement: " + returnStatement + " tainted for: " + u);
                     isTainted = true;
                     break;
                 }
